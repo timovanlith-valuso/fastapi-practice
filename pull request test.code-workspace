@@ -14,7 +14,6 @@ def greet_people(data: PeopleRequest):
         messages.append(message)
     return {"messages": messages}
 
-uvicorn main:app --reload
 
 {
   "people": [
