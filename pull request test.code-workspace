@@ -1,25 +1,36 @@
+class Person(BaseModel):
+    name: str
+    age: int
+    city: str
+
+class PeopleRequest(BaseModel):
+    people: List[Person]
+
+@app.post("/greet")
+def greet_people(data: PeopleRequest):
+    messages = []
+    for person in data.people:
+        message = f"Hi {person.name}, you are {person.age} years old and oh you are from {person.city}!"
+        messages.append(message)
+    return {"messages": messages}
+
+uvicorn main:app --reload
+
 {
-	"folders": [
-		{
-			"path": "../../.venv-1"
-		},
-		{
-			"path": "../../.venv312"
-		},
-		{
-			"path": "../../.vscode"
-		},
-		{
-			"path": "../../__pycache__"
-		},
-		{
-			"path": "../../api"
-		},
-		{
-			"path": "../../app"
-		},
-		{
-			"path": ".."
-		}
-	]
+  "people": [
+    {"name": "Timo", "age": 25, "city": "Tilburg"},
+    {"name": "Christie", "age": 23, "city": "Amsterdam"},
+    {"name": "Nina", "age": 24, "city": "Rotterdam"},
+    {"name": "Jeroen", "age": 28, "city": "Utrecht"},
+    {"name": "Duco", "age": 27, "city": "Eindhoven"}
+  ]
+}
+{
+  "messages": [
+    "Hi Timo, you are 25 years old and oh you are from Tilburg!",
+    "Hi Christie, you are 23 years old and oh you are from Amsterdam!",
+    "Hi Nina, you are 24 years old and oh you are from Rotterdam!",
+    "Hi Jeroen, you are 28 years old and oh you are from Utrecht!",
+    "Hi Duco, you are 27 years old and oh you are from Eindhoven!"
+  ]
 }
